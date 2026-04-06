@@ -25,3 +25,31 @@ Q1
 <img width="1500" height="750" alt="image" src="https://github.com/user-attachments/assets/30907e6c-7978-465a-89b6-ab05c9e1a3eb" />
 
 
+Q2 
+
+Let dp[i][j] be the maximum value of any common subsequence of the first i characters of A
+and the first j characters of B.
+Base case: dp[i][0] = dp[0][j] = 0, since an empty prefix has no characters.
+Recurrence: If A[i] == B[j], then dp[i][j] = dp[i-1][j-1] + v(A[i]). Otherwise, dp[i][j] =
+max(dp[i-1][j], dp[i][j-1]).
+This is correct because when characters match we take that character and add its value to
+the best solution on the remaining prefixes. When they don't match, we skip one character
+from either A or B and take the better result. The answer is dp[m][n].
+
+Q3
+
+HVLCS(A, B):
+set every dp[i][0] to 0 for all i (empty B has no value)
+set every dp[0][j] to 0 for all j (empty A has no value)
+for each position i in A:
+for each position j in B:
+if the character A[i] equals B[j]:
+take this character and add its value to the best solution so far
+dp[i][j] = dp[i-1][j-1] + v(A[i])
+otherwise:
+skip one character from either A or B, take whichever is better
+dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+
+return dp[m][n] (this is the maximum value)
+Runtime
+O(mn)
