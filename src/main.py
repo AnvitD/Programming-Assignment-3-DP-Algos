@@ -1,6 +1,26 @@
 import os
 import glob
 
+def parse_input(raw_data: str):
+    lines = [line.strip() for line in raw_data.strip().splitlines() if line.strip()]
+    
+    if not lines:
+        return {}, "", ""
+
+    try:
+        num_values = int(lines[0])
+        char_weights = {}
+        for i in range(1, num_values + 1):
+            char, weight = lines[i].split()
+            char_weights[char] = int(weight)
+        
+        string_a = lines[num_values + 1] if len(lines) > num_values + 1 else ""
+        string_b = lines[num_values + 2] if len(lines) > num_values + 2 else ""
+        
+        return char_weights, string_a, string_b
+    except (ValueError, IndexError) as e:
+        return {}, "", ""
+
 def find_highest_value_lcs(weights: dict, str_a: str, str_b: str):
     n, m = len(str_a), len(str_b)
     dp_table = [[0] * (m + 1) for _ in range(n + 1)]
