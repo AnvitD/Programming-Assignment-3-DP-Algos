@@ -47,3 +47,38 @@ def find_highest_value_lcs(weights: dict, str_a: str, str_b: str):
             j -= 1
 
     return dp_table[n][m], "".join(reversed(lcs_chars))
+
+
+def main():
+    search_path = "tests/*.in"
+    input_files = glob.glob(search_path)
+    
+    if not input_files:
+        print(f"No files found in '{search_path}'. Checking current directory...")
+        input_files = glob.glob("*.in")
+    
+    if not input_files:
+        print("Error: No .in files found anywhere.")
+        return
+
+    for input_filename in input_files:
+        output_filename = os.path.splitext(input_filename)[0] + ".out"
+        
+        try:
+            with open(input_filename, 'r') as infile:
+                raw_data = infile.read()
+            
+            weights, str_a, str_b = parse_input(raw_data)
+            
+            max_score, sequence = find_highest_value_lcs(weights, str_a, str_b)
+            
+            with open(output_filename, 'w') as outfile:
+                outfile.write(f"Max Value: {max_score}\n")
+                outfile.write(f"Subsequence: {sequence}\n")
+            
+            print(f"Done: {input_filename} -> {output_filename}")
+                
+        except Exception as e:
+            print(f"Failed to process {input_filename}: {e}")
+if __name__ == "__main__":
+    main()
