@@ -12,8 +12,7 @@ File Format:
         graph.py
     tests\
         all test .in and .out files
-    results\
-        plot and timining data.
+
 
 
 to run this project you can simply go to main.py and run the file. Make sure to be in the parent directory so the code is able to find the required test files and the tests directory. Doing this it will automatically go through all 10 .in files and create thier subsequent .out files. 
